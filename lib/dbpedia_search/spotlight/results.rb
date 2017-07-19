@@ -26,11 +26,11 @@ class DbpediaSearch::Spotlight::Results
 
   def filter_using_top_score_multiplier threshold=0
     tags.map { |tag| tag.filter_using_top_score_multiplier(threshold) }
-    tags.flatten.uniq
+    tags.flatten.sets.uniq
   end
 
   def filter_using_absolute_value threshold=0
     tags.map { |tag| tag.filter_using_absolute_value(threshold) }
-    tags.flatten.uniq
+    tags.flatten.sets.uniq
   end
 end
