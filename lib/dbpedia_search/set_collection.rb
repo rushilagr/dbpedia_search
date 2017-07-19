@@ -40,11 +40,11 @@ class DbpediaSearch::SetCollection
 
   def filter_using_top_score_multiplier threshold=0
     top_score = self.inject(0) { |top, set| set.score>top ? set.score : top }
-    self.select { |set| set.score >= (threshold * top_score) }
+    @sets { |set| set.score >= (threshold * top_score) }
   end
 
   def filter_using_absolute_value threshold=0
-    self.select { |set| set.score >= threshold }
+    @sets { |set| set.score >= threshold }
   end
 
   def print
