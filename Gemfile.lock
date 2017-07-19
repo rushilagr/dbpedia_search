@@ -1,0 +1,42 @@
+PATH
+  remote: .
+  specs:
+    dbpedia_search (0.9)
+      dbpedia (~> 0.0.1)
+      dry-configurable
+      httparty
+      httplog
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (0.8.1)
+    concurrent-ruby (1.0.5)
+    dbpedia (0.0.2)
+      nokogiri (>= 1.5.5)
+    dry-configurable (0.7.0)
+      concurrent-ruby (~> 1.0)
+    httparty (0.15.5)
+      multi_xml (>= 0.5.2)
+    httplog (0.99.6)
+      colorize
+      rack
+    mini_portile2 (2.2.0)
+    minitest (5.10.2)
+    multi_xml (0.6.0)
+    nokogiri (1.8.0)
+      mini_portile2 (~> 2.2.0)
+    rack (2.0.3)
+    rake (10.4.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.14)
+  dbpedia_search!
+  minitest (~> 5.0)
+  rake (~> 10.0)
+
+BUNDLED WITH
+   1.15.1
