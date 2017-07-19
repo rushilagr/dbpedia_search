@@ -23,4 +23,14 @@ class DbpediaSearch::Spotlight::Results
     sets = @tags.inject(Tag.new,:+)
     sets.uniq
   end
+
+  def filter_using_top_score_multiplier threshold=0
+    tags.map { |tag| tag.filter_using_top_score_multiplier(threshold) }
+    tags.flatten.uniq
+  end
+
+  def filter_using_absolute_value threshold=0
+    tags.map { |tag| tag.filter_using_absolute_value(threshold) }
+    tags.flatten.uniq
+  end
 end
