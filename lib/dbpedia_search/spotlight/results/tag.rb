@@ -7,4 +7,13 @@ class DbpediaSearch::Spotlight::Results::Tag < DbpediaSearch::SetCollection
     @tag = args[:tag]
     super
   end
+
+  def hash
+    @tag.hash
+  end
+
+  def eql?(obj)
+    @tag == obj.tag
+  end
+
 end

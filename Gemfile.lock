@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dbpedia_search (0.9)
+    dbpedia_search (0.9.1)
       dbpedia (~> 0.0.1)
       dry-configurable
       httparty
@@ -18,7 +18,7 @@ GEM
       concurrent-ruby (~> 1.0)
     httparty (0.15.5)
       multi_xml (>= 0.5.2)
-    httplog (0.99.6)
+    httplog (0.99.7)
       colorize
       rack
     mini_portile2 (2.2.0)
@@ -39,4 +39,4 @@ DEPENDENCIES
   rake (~> 10.0)
 
 BUNDLED WITH
-   1.15.1
+   1.15.2

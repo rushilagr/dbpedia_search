@@ -1,3 +1,3 @@
 class DbpediaSearch
-  VERSION = "0.9"
+  VERSION = "0.9.1"
 end

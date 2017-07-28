@@ -1,10 +1,14 @@
 module DbpediaSearch::Spotlight
   require 'dbpedia_search/spotlight/results.rb'
 
-  def self.search_spotlight (text)
-    response = get_spotlight_response text
-    parsed_response = parse_spotlight_response response
-    results = Results.new(parsed_response)
+  def self.search (text)
+    text_hash = {original_text: text, titleized_text: text.split.map(&:capitalize).join(" "), downcased_text: text.downcase}
+    results = text_hash.values.inject(Results.new) do |results, str|
+      response = get_spotlight_response str
+      parsed_response = parse_spotlight_response response
+      results.tags |= Results.new(parsed_response: parsed_response).tags
+      results
+    end
   end
 
   def self.get_spotlight_response text
@@ -23,18 +27,16 @@ module DbpediaSearch::Spotlight
   end
 
   def self.parse_spotlight_response response
-    parsed_response = {}
+     {}
     json = JSON.parse response.body
     keywords = json['annotation']['surfaceForm']
     keywords = [keywords] if keywords.class == {}.class
     return {} if keywords.nil?
 
-    keywords.each do |keyword|
-      keywords_arr = []
+    parsed_response = keywords.inject({}) do |parsed_response, keyword|
       sets = keyword['resource']
       sets = [sets] if sets.class == {}.class
-
-      sets.each do |e|
+      keywords_arr = sets.inject([]) do |keywords_arr, e|
         set_hash = {
           uri:('http://dbpedia.org/resource/' + e["@uri"]), 
           label:e["@label"], 
@@ -42,9 +44,10 @@ module DbpediaSearch::Spotlight
         }
         keywords_arr << set_hash
       end
-
       parsed_response[keyword['@name']] = keywords_arr
+      parsed_response
     end
+
     parsed_response
   end
 end

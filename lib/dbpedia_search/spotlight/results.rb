@@ -5,9 +5,14 @@ class DbpediaSearch::Spotlight::Results
   include Enumerable
   attr_accessor :tags
 
-  def initialize parsed_response
-    @tags = parsed_response.map do |tag, sets|
-      Tag.new(tag:tag, sets:sets)
+  def initialize args={}
+    args = {parsed_response: []}.merge(args)
+    if args[:tags].nil?
+      @tags = args[:parsed_response].map do |tag, sets|
+        Tag.new(tag:tag, sets:sets)
+      end
+    else
+      @tags = args[:tags]
     end
   end
 
@@ -20,8 +25,7 @@ class DbpediaSearch::Spotlight::Results
   end
 
   def sets
-    sets = @tags.inject(Tag.new,:+)
-    sets.uniq
+    set_collection = @tags.inject(Tag.new,:+).uniq
   end
 
   def filter_using_top_score_multiplier threshold=0
