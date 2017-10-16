@@ -17,8 +17,7 @@ end
 module DbpediaGemClientExtenstion
   def initialize
     super
-    var = ::DbpediaSearch.config.lookup.url
-    unless var .nil?
+    unless DbpediaSearch.config.lookup.url.nil?
       search = {
         'keyword' => var + '/KeywordSearch', 
         'prefix' => var + '/PrefixSearch'

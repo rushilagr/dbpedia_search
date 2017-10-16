@@ -1,15 +1,15 @@
 module DbpediaSearch::Spotlight
   require 'dbpedia_search/spotlight/results.rb'
 
-  def self.search (text)
-    text_hash = {original_text: text, titleized_text: text.split.map(&:capitalize).join(" "), downcased_text: text.downcase}
-    results = text_hash.values.inject(Results.new) do |results, str|
+  def self.search (text_arr)
+    results = text_arr.each_with_object(Results.new) do |str, results|
       response = get_spotlight_response str
       parsed_response = parse_spotlight_response response
       results.tags |= Results.new(parsed_response: parsed_response).tags
-      results
     end
   end
+
+  private
 
   def self.get_spotlight_response text
     response = HTTParty.get(

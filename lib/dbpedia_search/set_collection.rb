@@ -1,4 +1,3 @@
-require 'pp'
 require 'dbpedia_search/set.rb'
 
 class DbpediaSearch::SetCollection

@@ -1,5 +1,3 @@
-require 'pp'
-
 class DbpediaSearch::Spotlight::Results
   require 'dbpedia_search/spotlight/results/tag.rb'
   include Enumerable
