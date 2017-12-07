@@ -19,8 +19,8 @@ module DbpediaGemClientExtenstion
     super
     unless DbpediaSearch.config.lookup.url.nil?
       search = {
-        'keyword' => var + '/KeywordSearch', 
-        'prefix' => var + '/PrefixSearch'
+        'keyword' => DbpediaSearch.config.lookup.url + '/KeywordSearch', 
+        'prefix' => DbpediaSearch.config.lookup.url + '/PrefixSearch'
       }
       @uris = {'search' => search}
     end

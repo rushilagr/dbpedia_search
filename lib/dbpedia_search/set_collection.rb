@@ -10,10 +10,10 @@ class DbpediaSearch::SetCollection
     if args[:set_array].nil?
       @sets = args[:sets].map do |set|
         DbpediaSearch::Set.new(
-          uri:set[:uri], 
-          label:set[:label], 
-          score:set[:score]
-          )
+          uri: set[:uri], 
+          label: set[:label], 
+          score: set[:score]
+        )
       end
     else
       #TODO check if array and each element is Set
@@ -21,9 +21,9 @@ class DbpediaSearch::SetCollection
     end
   end
 
-  def + set_collection
+  def + given_collection
     new_collection = DbpediaSearch::SetCollection.new
-    new_collection.sets = @sets + set_collection.sets
+    new_collection.sets = @sets + given_collection.sets
     new_collection
   end
 
@@ -44,9 +44,5 @@ class DbpediaSearch::SetCollection
 
   def filter_using_absolute_value threshold=0
     @sets.select { |set| set.score >= threshold }
-  end
-
-  def print
-    pp self
   end
 end

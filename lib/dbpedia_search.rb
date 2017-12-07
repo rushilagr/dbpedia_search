@@ -9,6 +9,7 @@ require 'dbpedia_search/spotlight.rb'
 require 'dbpedia_search/lookup.rb'
 
 class DbpediaSearch
+  
   def self.search (text, service)
     text_arr = pre_process text
 
@@ -20,13 +21,9 @@ class DbpediaSearch
     when :prefix
       Lookup.search(text_arr, :prefix)
     when :all
-      search_all text_arr
+      results = Spotlight.search(text_arr).sets + Lookup.search(text_arr, :keyword) + Lookup.search(text_arr, :prefix)
+      results = results.uniq
     end
-  end
-
-  def self.search_all text_arr
-    results = Spotlight.search(text_arr).sets + Lookup.search(text_arr, :keyword) + Lookup.search(text_arr, :prefix)
-    results = results.uniq
   end
 
   def self.pre_process text
@@ -34,7 +31,6 @@ class DbpediaSearch
       original_text: text,
       titleized_text: text.split.map(&:capitalize).join(" "),
       downcased_text: text.downcase
-    }
-    text_hash.values
+    }.values.uniq
   end
 end

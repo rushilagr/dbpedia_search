@@ -18,16 +18,12 @@ class DbpediaSearch::Spotlight::Results
     @tags.each(&block)
   end
 
-  def print
-    pp self
-  end
-
   def sets
     set_collection = @tags.inject(Tag.new,:+).uniq
   end
 
   def filter_using_top_score_multiplier threshold=0
-    tags.reduce([]) do |sets, tag| 
+    sets = tags.reduce([]) do |sets, tag| 
       sets | tag.filter_using_top_score_multiplier(threshold)
     end
   end
